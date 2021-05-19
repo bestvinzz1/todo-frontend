@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Selamat Datang</h1>
-    <div>Berikut daftar kerja kita : </div>
+    <h1>Database</h1>
+    <div>Data List : </div>
     <ul>
       <li v-for="item in todos" :key="item">{{item.Name}}<button @click ="deleteTodo(item.Name)">-</button></li> 
     </ul>
