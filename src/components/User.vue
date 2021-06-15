@@ -1,11 +1,12 @@
 <template>
   <div>
     <h1>Database</h1>
-    <div>Data List : </div>
+    <div>User List : </div>
     <ul>
       <li v-for="item in users" :key="item">{{item.Name}}<button @click ="deleteUser(item.Name)">-</button></li> 
     </ul>
-    <input v-model="myText" type="text"/>
+    <input v-model="username"/>
+    <input v-model="password"/>
     <button @click="Add">Add Data</button>
   </div>
 </template>
