@@ -26,14 +26,16 @@
     },
     methods: {
       getTodos(){
-        axios.get('http://localhost:3000/user')
+        const username = localStorage.getItem('usr')
+        const password = localStorage.getItem('pwd')
+        axios.get('http://localhost:3000/user', {header: {username , password}})
         .then(result => {
           this.users = result.data
         })
       },
       addTodos(){
         let addItem = {Name: this.myText}
-        axios.post('http://localhost:3000/user', addItem)
+        axios.post('http://localhost:3000/user', addItem, {header: {username , password}})
         this.users.push(addItem)
       },
       deleteTodo(Name){
