@@ -3,11 +3,11 @@
     <h1>Database</h1>
     <div>User List : </div>
     <ul>
-      <li v-for="item in users" :key="item">{{item.Name}}<button @click ="deleteUser(item.Name)">-</button></li> 
+      <li v-for="item in users" :key="item">{{item.username}}<button @click ="deleteUsers(item.id)">-</button></li> 
     </ul>
     <input v-model="username"/>
     <input v-model="password"/>
-    <button @click="Add">Add Data</button>
+    <button @click="addUsers">Add Data</button>
   </div>
 </template>
 
@@ -25,21 +25,24 @@
       this.getUsers()
     },
     methods: {
-      getTodos(){
+      getUsers(){
         const username = localStorage.getItem('usr')
         const password = localStorage.getItem('pwd')
-        axios.get('http://localhost:3000/user', {header: {username , password}})
+        axios.get('http://localhost:3000/user', {headers: {username , password}})
         .then(result => {
           this.users = result.data
         })
       },
-      addTodos(){
-        let addItem = {Name: this.myText}
-        axios.post('http://localhost:3000/user', addItem, {header: {username , password}})
-        this.users.push(addItem)
+      addUsers(){
+        const username = localStorage.getItem('usr')
+        const password = localStorage.getItem('pwd')
+        let addUser = {username : this.username, password : this.password}
+        axios.post('http://localhost:3000/user', addUser, {headers: {username , password}})
+        .then(() => {
+            this.getUsers()})
       },
-      deleteTodo(Name){
-        axios.delete(`http://localhost:3000/user/${Name}`)
+      deleteUsers(id){
+        axios.delete(`http://localhost:3000/user/${id}`)
           .then(() => {
             this.getUsers()
         })
